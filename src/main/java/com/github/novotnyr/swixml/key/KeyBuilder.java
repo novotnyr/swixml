@@ -35,10 +35,8 @@ public final class KeyBuilder {
         }
 
         public EntryBuilder withKeyPassword(String password) {
-            if (password == null) {
-                return this;
-            }
-            this.keyProtectionParameter = new KeyStore.PasswordProtection(password.toCharArray());
+            char[] passwordBuffer = password != null ? password.toCharArray() : null;
+            this.keyProtectionParameter = new KeyStore.PasswordProtection(passwordBuffer);
             return this;
         }
 
