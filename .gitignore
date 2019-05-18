@@ -1,4 +1,5 @@
 src/test/java/
+src/test/resource/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
