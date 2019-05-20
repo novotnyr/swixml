@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 
 public class XmlBuilder {
@@ -23,9 +24,13 @@ public class XmlBuilder {
         return xmlBuilder;
     }
 
-    public static XmlBuilder fromClasspath(String classpathLocation) {
+    public static XmlBuilder fromClasspath(String classpathLocation) throws ResourceNotFoundException {
         XmlBuilder xmlBuilder = new XmlBuilder();
-        xmlBuilder.inputSource = new InputSource(XmlBuilder.class.getResourceAsStream(classpathLocation));
+        InputStream xmlInputStream = XmlBuilder.class.getResourceAsStream(classpathLocation);
+        if (xmlInputStream == null) {
+            throw new ResourceNotFoundException("No resource found in classpath at " + classpathLocation);
+        }
+        xmlBuilder.inputSource = new InputSource(xmlInputStream);
         return xmlBuilder;
     }
 
